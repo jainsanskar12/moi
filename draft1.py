@@ -3,54 +3,75 @@ import pandas as pd
 import datetime
 
 # Page configuration
-st.set_page_config(page_title="Mahavir Oil Industry - Price Board", layout="centered")
+st.set_page_config(page_title="Mahavir Oil Industry - Daily Prices", layout="centered")
 
-# Title section
+# Custom CSS styling
 st.markdown("""
     <style>
-        .title {
+        .main-title {
             text-align: center;
-            font-size: 40px;
-            font-weight: bold;
-            color: #4B8BBE;
-            margin-bottom: 5px;
+            font-size: 48px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 0;
         }
-        .subtitle {
+        .sub-title {
             text-align: center;
             font-size: 20px;
-            color: #666;
+            color: #7f8c8d;
+            margin-top: 0;
         }
-        .card {
-            background-color: #f9f9f9;
-            padding: 20px;
+        .price-card {
+            background-color: #ffffff;
             border-radius: 15px;
-            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            padding: 25px;
+            margin: 15px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .product-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: #34495e;
+        }
+        .product-price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        .footer {
+            text-align: center;
+            color: #95a5a6;
+            margin-top: 50px;
+            font-size: 14px;
         }
     </style>
-    <div class="title">Mahavir Oil Industry</div>
-    <div class="subtitle">Daily Cotton Seed Cake Price Board</div>
 """, unsafe_allow_html=True)
 
-# Current date
-today = datetime.date.today().strftime('%d-%b-%Y')
-st.markdown(f"**📅 Price as on: {today}**")
+# Header
+st.markdown('<div class="main-title">Mahavir Oil Industry</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-title">Cotton Seed Cake Price Display</div>', unsafe_allow_html=True)
+st.markdown(f"<p style='text-align:center; font-size:16px; color:#555;'>📅 Price as on: {datetime.date.today().strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
 
-# Product prices
-price_data = pd.DataFrame({
-    "Variety": ["Char Ekka", "Double Ghoda", "Pachora Quality"],
-    "Price (₹ per quintal)": [2250, 2150, 2050]
-})
+# Data
+varieties = [
+    {"name": "Char Ekka", "price": "₹ 2250"},
+    {"name": "Double Ghoda", "price": "₹ 2150"},
+    {"name": "Pachora Quality", "price": "₹ 2050"}
+]
 
-# Display styled card with prices
-st.markdown('<div class="card">', unsafe_allow_html=True)
-st.table(price_data)
-st.markdown('</div>', unsafe_allow_html=True)
+# Show product cards
+for item in varieties:
+    st.markdown(f"""
+        <div class="price-card">
+            <div class="product-name">{item['name']}</div>
+            <div class="product-price">{item['price']}</div>
+        </div>
+    """, unsafe_allow_html=True)
 
-# Download option
-csv = price_data.to_csv(index=False)
-st.download_button("📥 Download Price List (CSV)", csv, "mahavir_prices.csv", "text/csv")
+# CSV download option
+price_df = pd.DataFrame(varieties)
+csv = price_df.to_csv(index=False)
+st.download_button("📥 Download Price List", csv, "Mahavir_Price_List.csv", "text/csv")
 
 # Footer
-st.markdown("---")
-st.markdown("© 2025 Mahavir Oil Industry | Seller: Sanskar Jain", unsafe_allow_html=True)
+st.markdown('<div class="footer">© 2025 Mahavir Oil Industry | Designed for Seller: Sanskar Jain</div>', unsafe_allow_html=True)
