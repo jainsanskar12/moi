@@ -2,38 +2,55 @@ import streamlit as st
 import pandas as pd
 import datetime
 
-st.set_page_config(page_title="Mahavir Oil Industry - Daily Cotton Seed Cake Prices", layout="centered")
+# Page configuration
+st.set_page_config(page_title="Mahavir Oil Industry - Price Board", layout="centered")
 
-st.title("🌾 Mahavir Oil Industry")
-st.subheader("Daily Cotton Seed Cake Price Tracker")
+# Title section
+st.markdown("""
+    <style>
+        .title {
+            text-align: center;
+            font-size: 40px;
+            font-weight: bold;
+            color: #4B8BBE;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 20px;
+            color: #666;
+        }
+        .card {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+    </style>
+    <div class="title">Mahavir Oil Industry</div>
+    <div class="subtitle">Daily Cotton Seed Cake Price Board</div>
+""", unsafe_allow_html=True)
 
-# Initialize session state to store data
-if 'price_data' not in st.session_state:
-    st.session_state.price_data = pd.DataFrame(columns=['Date', 'Price (₹ per quintal)'])
+# Current date
+today = datetime.date.today().strftime('%d-%b-%Y')
+st.markdown(f"**📅 Price as on: {today}**")
 
-# Input form
-with st.form("price_form"):
-    date = st.date_input("Select Date", datetime.date.today())
-    price = st.number_input("Enter Price (₹ per quintal)", min_value=0.0, format="%.2f")
-    submitted = st.form_submit_button("Submit Price")
+# Product prices
+price_data = pd.DataFrame({
+    "Variety": ["Char Ekka", "Double Ghoda", "Pachora Quality"],
+    "Price (₹ per quintal)": [2250, 2150, 2050]
+})
 
-    if submitted:
-        new_entry = pd.DataFrame([[date, price]], columns=['Date', 'Price (₹ per quintal)'])
-        st.session_state.price_data = pd.concat([st.session_state.price_data, new_entry], ignore_index=True)
-        st.success("Price added successfully!")
+# Display styled card with prices
+st.markdown('<div class="card">', unsafe_allow_html=True)
+st.table(price_data)
+st.markdown('</div>', unsafe_allow_html=True)
 
-# Sort data by date
-st.session_state.price_data.sort_values("Date", inplace=True)
+# Download option
+csv = price_data.to_csv(index=False)
+st.download_button("📥 Download Price List (CSV)", csv, "mahavir_prices.csv", "text/csv")
 
-# Show table
-st.write("### 📊 Price History")
-st.dataframe(st.session_state.price_data, use_container_width=True)
-
-# Plot
-st.write("### 📈 Price Trend")
-st.line_chart(st.session_state.price_data.set_index("Date"))
-
-# Option to download CSV
-csv = st.session_state.price_data.to_csv(index=False)
-st.download_button("Download Data as CSV", csv, "cotton_seed_prices.csv", "text/csv")
-
+# Footer
+st.markdown("---")
+st.markdown("© 2025 Mahavir Oil Industry | Seller: Sanskar Jain", unsafe_allow_html=True)
