@@ -89,4 +89,4 @@ st.markdown("""
 # Image Gallery
 st.markdown('<div class="section-title">🖼️ Image Gallery</div>', unsafe_allow_html=True)
 
-st.markdown('<div class="footer">© 2025 Mahavir Oil Industries | Designed for Seller: Sanskar Jain</div>', unsafe_allow_html=True)
+st.markdown('<div class="footer">© 2025 Mahavir Oil Industries | </div>', unsafe_allow_html=True)
