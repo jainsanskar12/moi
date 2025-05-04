@@ -80,21 +80,13 @@ for product in products:
 st.markdown('<div class="section-title">📞 Contact Information</div>', unsafe_allow_html=True)
 st.markdown("""
 <div class='contact-info'>
-<strong>Address:</strong> 123 Industrial Area, Pune, Maharashtra, India<br>
-<strong>Phone:</strong> +91-9876543210<br>
-<strong>Email:</strong> info@mahaviroilindustries.com
+<strong>Address:</strong> Shendurni, Maharashtra, India<br>
+
+<strong>Email:</strong> vkkshendurni111@gmail.com
 </div>
 """, unsafe_allow_html=True)
 
 # Image Gallery
 st.markdown('<div class="section-title">🖼️ Image Gallery</div>', unsafe_allow_html=True)
 
-# Display images (replace 'image1.jpg', 'image2.jpg', etc. with actual image paths)
-image_paths = ['image1.jpg', 'image2.jpg', 'image3.jpg']  # Replace with actual image file paths
-
-cols = st.columns(len(image_paths))
-for col, image_path in zip(cols, image_paths):
-    col.image(image_path, use_column_width=True)
-
-# Footer
 st.markdown('<div class="footer">© 2025 Mahavir Oil Industries | Designed for Seller: Sanskar Jain</div>', unsafe_allow_html=True)
