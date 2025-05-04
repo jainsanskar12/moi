@@ -3,7 +3,7 @@ import pandas as pd
 import datetime
 
 # Page configuration
-st.set_page_config(page_title="Mahavir Oil Industry - Daily Prices", layout="centered")
+st.set_page_config(page_title="Mahavir Oil Industries - Daily Prices", layout="centered")
 
 # Custom CSS styling
 st.markdown("""
@@ -21,22 +21,25 @@ st.markdown("""
             color: #7f8c8d;
             margin-top: 0;
         }
-        .price-card {
-            background-color: #ffffff;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 15px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #34495e;
+            margin-top: 40px;
         }
         .product-name {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 600;
             color: #34495e;
         }
         .product-price {
-            font-size: 28px;
+            font-size: 22px;
             font-weight: bold;
             color: #27ae60;
+        }
+        .contact-info {
+            font-size: 16px;
+            color: #2c3e50;
         }
         .footer {
             text-align: center;
@@ -48,30 +51,50 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Header
-st.markdown('<div class="main-title">Mahavir Oil Industry</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-title">Mahavir Oil Industries</div>', unsafe_allow_html=True)
 st.markdown('<div class="sub-title">Cotton Seed Cake Price Display</div>', unsafe_allow_html=True)
 st.markdown(f"<p style='text-align:center; font-size:16px; color:#555;'>📅 Price as on: {datetime.date.today().strftime('%d %B %Y')}</p>", unsafe_allow_html=True)
 
-# Data
-varieties = [
-    {"name": "Char Ekka", "price": "₹ 2250"},
-    {"name": "Double Ghoda", "price": "₹ 2150"},
-    {"name": "Pachora Quality", "price": "₹ 2050"}
+# Company Overview
+st.markdown('<div class="section-title">🏢 Company Overview</div>', unsafe_allow_html=True)
+st.write("""
+Mahavir Oil Industries is a leading manufacturer and supplier of high-quality cotton seed cake. With years of experience in the industry, we are committed to providing our customers with the best products and services.
+""")
+
+# Product Details
+st.markdown('<div class="section-title">🛍️ Product Details</div>', unsafe_allow_html=True)
+
+products = [
+    {"name": "Char Ekka", "price": "₹ 2250", "description": "Premium quality cotton seed cake with high protein content."},
+    {"name": "Double Ghoda", "price": "₹ 2150", "description": "High-grade cotton seed cake suitable for livestock feed."},
+    {"name": "Pachora Quality", "price": "₹ 2050", "description": "Economical cotton seed cake with balanced nutrients."}
 ]
 
-# Show product cards
-for item in varieties:
-    st.markdown(f"""
-        <div class="price-card">
-            <div class="product-name">{item['name']}</div>
-            <div class="product-price">{item['price']}</div>
-        </div>
-    """, unsafe_allow_html=True)
+for product in products:
+    st.markdown(f"**{product['name']}**")
+    st.write(f"{product['description']}")
+    st.markdown(f"<span class='product-price'>{product['price']}</span>", unsafe_allow_html=True)
+    st.markdown("---")
 
-# CSV download option
-price_df = pd.DataFrame(varieties)
-csv = price_df.to_csv(index=False)
-st.download_button("📥 Download Price List", csv, "Mahavir_Price_List.csv", "text/csv")
+# Contact Information
+st.markdown('<div class="section-title">📞 Contact Information</div>', unsafe_allow_html=True)
+st.markdown("""
+<div class='contact-info'>
+<strong>Address:</strong> 123 Industrial Area, Pune, Maharashtra, India<br>
+<strong>Phone:</strong> +91-9876543210<br>
+<strong>Email:</strong> info@mahaviroilindustries.com
+</div>
+""", unsafe_allow_html=True)
+
+# Image Gallery
+st.markdown('<div class="section-title">🖼️ Image Gallery</div>', unsafe_allow_html=True)
+
+# Display images (replace 'image1.jpg', 'image2.jpg', etc. with actual image paths)
+image_paths = ['image1.jpg', 'image2.jpg', 'image3.jpg']  # Replace with actual image file paths
+
+cols = st.columns(len(image_paths))
+for col, image_path in zip(cols, image_paths):
+    col.image(image_path, use_column_width=True)
 
 # Footer
-st.markdown('<div class="footer">© 2025 Mahavir Oil Industry | Designed for Seller: Sanskar Jain</div>', unsafe_allow_html=True)
+st.markdown('<div class="footer">© 2025 Mahavir Oil Industries | Designed for Seller: Sanskar Jain</div>', unsafe_allow_html=True)
